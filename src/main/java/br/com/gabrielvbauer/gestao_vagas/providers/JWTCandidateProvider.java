@@ -5,13 +5,12 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 @Service
-public class JWTProvider {
-
-  @Value("${security.token.secret}")
+public class JWTCandidateProvider {
+  
+  @Value("${security.token.secret.candidate}")
   private String secretKey;
 
   public DecodedJWT validateToken(String token) {
@@ -21,12 +20,12 @@ public class JWTProvider {
 
     try {
       var tokenDecoded = JWT.require(algorithm)
-          .build()
-          .verify(token);
+        .build()
+        .verify(token);
 
       return tokenDecoded;
-    } catch (JWTVerificationException ex) {
-      ex.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
       return null;
     }
   }
