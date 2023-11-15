@@ -20,13 +20,13 @@ public class JWTProvider {
 
     try {
       var subject = JWT.require(algorithm)
-        .build()
-        .verify(token)
-        .getSubject();
+          .build()
+          .verify(token)
+          .getSubject();
 
       return subject;
-    } catch (JWTVerificationException e) {
-      e.printStackTrace();
+    } catch (JWTVerificationException ex) {
+      ex.printStackTrace();
       return "";
     }
   }
